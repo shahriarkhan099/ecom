@@ -1,0 +1,82 @@
+<div class="cart-container mat-elevation-z2">
+  <h2>Your Cart</h2>
+
+  <div class="search-container">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search items</mat-label>
+      <input
+        matInput
+        [formControl]="searchControl"
+        placeholder="Type to search..."
+      />
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef>Image</th>
+      <td mat-cell *matCellDef="let item">
+        <img [src]="item.image" [alt]="item.title" class="product-thumbnail" />
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 30%">
+        Title
+      </th>
+      <td mat-cell *matCellDef="let item">{{ item.title }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 15%">
+        Price per quantity
+      </th>
+      <td mat-cell *matCellDef="let item">{{ item.price | currency }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef style="width: 15%">Quantity</th>
+      <td mat-cell *matCellDef="let item">
+        <button mat-icon-button (click)="updateQuantity(item, -1)">
+          <mat-icon>remove</mat-icon>
+        </button>
+        {{ item.quantity }}
+        <button mat-icon-button (click)="updateQuantity(item, 1)">
+          <mat-icon>add</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef style="width: 15%">Total</th>
+      <td mat-cell *matCellDef="let item">
+        {{ item.price * item.quantity | currency }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let item">
+        <button mat-icon-button color="warn" (click)="removeItem(item)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[8, 16, 32, 62, 100]"
+    showFirstLastButtons
+  ></mat-paginator>
+
+  <div class="cart-total">
+    <h3>Total: {{ cartTotal | currency }}</h3>
+    <h3>Login to checkout</h3>
+    <button>
+      <app-login></app-login>
+    </button>
+  </div>
+</div>

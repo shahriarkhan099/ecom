@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Flash Sale!</h2>
+<mat-dialog-content>
+  <p>Don't miss out on this amazing deal for {{ data.product.title }}!</p>
+  <img
+  [src]="data.product.image"
+  [alt]="data.product.title"
+  class="product-image"
+  />
+  <p>Price: {{ data.product.price | currency }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="addToCart(data.product)">
+    Add to Cart
+  </button>
+</mat-dialog-actions>

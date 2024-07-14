@@ -1,0 +1,30 @@
+<mat-card class="product-card">
+  <div class="image-container">
+    <img [src]="product.image" [alt]="product.title" />
+    <div class="overlay">
+      <button mat-icon-button color="primary" (click)="showDetails()" matTooltip="View Details">
+        <mat-icon>visibility</mat-icon>
+      </button>
+    </div>
+  </div>
+  <mat-card-content>
+    <h2 class="product-title" [matTooltip]="product.title">{{ product.title | truncate:40 }}</h2>
+    <p class="product-price">{{ product.price | currency }}</p>
+    <p class="product-category">{{ product.category }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="accent" class="add-to-cart-btn" (click)="onAddToCart()">
+      <mat-icon>add_shopping_cart</mat-icon>
+      Add to Cart
+    </button>
+    <div class="quantity-control" *ngIf="quantity > 0">
+      <button mat-icon-button color="primary" (click)="decreaseQuantity()">
+        <mat-icon>remove</mat-icon>
+      </button>
+      <span class="quantity">{{ quantity }}</span>
+      <button mat-icon-button color="primary" (click)="increaseQuantity()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </mat-card-actions>
+</mat-card>

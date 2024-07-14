@@ -1,0 +1,45 @@
+<div *ngIf="product$ | async as product" class="product-details">
+  <img [src]="product.image" [alt]="product.title" class="product-image" />
+  <div class="product-info">
+    <h2>{{ product.title }}</h2>
+    <p class="price">{{ product.price | currency }}</p>
+    <p class="category">Category: {{ product.category }}</p>
+    <p class="description">{{ product.description }}</p>
+    <div class="cart-controls">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="addToCart(product)"
+        *ngIf="quantity === 0"
+      >
+        Add to Cart
+      </button>
+      <div class="quantity-control" *ngIf="quantity > 0">
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="decreaseQuantity(product.id)"
+        >
+          <mat-icon>remove</mat-icon>
+        </button>
+        <span class="quantity">{{ quantity }}</span>
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="increaseQuantity(product)"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 class="recommendation-title">Recommended for you</h2>
+<div class="recommended-products">
+  <app-product-card
+    *ngFor="let recommendedProduct of recommendedProducts$ | async"
+    [product]="recommendedProduct"
+  >
+  </app-product-card>
+</div>

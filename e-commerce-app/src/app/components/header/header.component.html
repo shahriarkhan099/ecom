@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+  <a mat-button routerLink="/"><h1>My E-commerce Store</h1></a>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="goToCart()">
+    <mat-icon [matBadge]="cartItemCount$ | async" matBadgeColor="accent">shopping_cart</mat-icon>
+  </button>
+  <ng-container *ngIf="isAuthenticated$ | async; else loginButton">
+    <button mat-button (click)="logout()">Logout</button>
+  </ng-container>
+  <ng-template #loginButton>
+    <button mat-button (click)="login()">Login</button>
+  </ng-template>
+</mat-toolbar>

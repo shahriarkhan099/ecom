@@ -1,0 +1,46 @@
+<div class="success-container">
+    <div class="success-header">
+      <mat-icon class="success-icon">check_circle</mat-icon>
+      <h1>Checkout Successful!</h1>
+    </div>
+    
+    <div class="receipt-container">
+      <h2>Your Receipt</h2>
+      <div class="receipt" #receipt>
+        <div class="receipt-header">
+          <h3>Order #{{orderId}}</h3>
+          <p>Date: {{orderDate | date:'medium'}}</p>
+        </div>
+        
+        <table class="receipt-items">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of orderItems">
+              <td>{{item.title}}</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.price | currency}}</td>
+              <td>{{item.price * item.quantity | currency}}</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div class="receipt-total">
+          <p>Subtotal: {{subtotal | currency}}</p>
+          <p>Tax: {{tax | currency}}</p>
+          <p class="grand-total">Grand Total: {{grandTotal | currency}}</p>
+        </div>
+      </div>
+      
+      <button mat-raised-button color="primary" (click)="downloadReceipt()">
+        <mat-icon>download</mat-icon>
+        Download Receipt (PDF)
+      </button>
+    </div>
+  </div>
